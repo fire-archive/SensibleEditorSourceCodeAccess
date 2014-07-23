@@ -51,14 +51,14 @@ bool FXCodeSourceCodeAccessor::OpenSolution()
   {
     FString Editor = FString(TEXT("/usr/bin/sensible-editor"));
     if(FLinuxPlatformProcess::CreateProc(*Editor,
-                                            *FullPath,
-                                            true,
-                                            true,
-                                            false,
-                                            nullptr,
-                                            0,
-                                            nullptr,
-                                           nullptr).IsValid())
+                                         *FullPath,
+                                         true,
+                                         true,
+                                         false,
+                                         nullptr,
+                                         0,
+                                         nullptr,
+                                         nullptr).IsValid())
       return true;
   }
   return false;
@@ -66,22 +66,18 @@ bool FXCodeSourceCodeAccessor::OpenSolution()
 
 bool FXCodeSourceCodeAccessor::OpenFileAtLine(const FString& FullPath, int32 LineNumber, int32 ColumnNumber)
 {
-  bool ExecutionSucceeded = false;
-  if(ExecutionSucceeded == false)
-  {   
     FString Editor = FString(TEXT("/usr/bin/sensible-editor"));
-    if(!(FLinuxPlatformProcess::CreateProc(*Editor,
-                                             *FullPath,
-                                             true,
-                                             true,
-                                             false,
-                                             nullptr,
-                                             0,
-                                             nullptr,
-                                             nullptr).IsValid()))
-      return false;
-  }
-  return true;
+    if(FLinuxPlatformProcess::CreateProc(*Editor,
+                                         *FullPath,
+                                         true,
+                                         true,
+                                         false,
+                                         nullptr,
+                                         0,
+                                         nullptr,
+                                         nullptr).IsValid())
+      return true;
+  return false;
 }
 
 bool FXCodeSourceCodeAccessor::OpenSourceFiles(const TArray<FString>& AbsoluteSourcePaths) 
@@ -90,14 +86,14 @@ bool FXCodeSourceCodeAccessor::OpenSourceFiles(const TArray<FString>& AbsoluteSo
   {
     FString Editor = FString(TEXT("/usr/bin/sensible-editor"));
     if(!(FLinuxPlatformProcess::CreateProc(*Editor,
-                                             *SourcePath,
-                                             true,
-                                             true,
-                                             false,
-                                             nullptr,
-                                             0,
-                                             nullptr,
-                                             nullptr).IsValid())) 
+                                           *SourcePath,
+                                           true,
+                                           true,
+                                           false,
+                                           nullptr,
+                                           0,
+                                           nullptr,
+                                           nullptr).IsValid())) 
         return false;
   }  
   return true;
