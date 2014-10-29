@@ -46,6 +46,7 @@ FText FSensibleSourceCodeAccessor::GetDescriptionText() const
 
 bool FSensibleSourceCodeAccessor::OpenSolution()
 {
+  FString FullPath;
   if ( FDesktopPlatformModule::Get()->GetSolutionPath(FullPath) )
   {
     if ( FPaths::FileExists( FullPath ) )
@@ -68,7 +69,6 @@ bool FSensibleSourceCodeAccessor::OpenSolution()
 
 bool FSensibleSourceCodeAccessor::OpenFileAtLine(const FString& FullPath, int32 LineNumber, int32 ColumnNumber)
 {
-    FString FullPath;
     FString Editor = FString(TEXT("/usr/bin/sensible-editor"));
     FString Args = FullPath;
     Args.Append(" +").Append(FString::FromInt(LineNumber));
