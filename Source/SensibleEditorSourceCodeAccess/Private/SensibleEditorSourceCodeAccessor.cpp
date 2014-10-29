@@ -46,7 +46,6 @@ FText FSensibleSourceCodeAccessor::GetDescriptionText() const
 
 bool FSensibleSourceCodeAccessor::OpenSolution()
 {
-  const FString FullPath = IFileManager::Get().ConvertToAbsolutePathForExternalAppForRead( *FModuleManager::Get().GetSolutionFilepath() );
   if ( FDesktopPlatformModule::Get()->GetSolutionPath(FullPath) )
   {
     if ( FPaths::FileExists( FullPath ) )
