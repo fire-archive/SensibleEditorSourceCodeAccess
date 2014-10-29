@@ -25,13 +25,13 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  */
 
 IMPLEMENT_MODULE( FXCodeSourceCodeAccessModule, SensibleEditorSourceCodeAccess );
 
-void FXCodeSourceCodeAccessModule::StartupModule()
+void FSensibleSourceCodeAccessModule::StartupModule()
 {
 	// Bind our source control provider to the editor
 	IModularFeatures::Get().RegisterModularFeature(TEXT("SourceCodeAccessor"), &SensibleEditorSourceCodeAccessor );
 }
 
-void FXCodeSourceCodeAccessModule::ShutdownModule()
+void FSensibleSourceCodeAccessModule::ShutdownModule()
 {
 	// unbind provider from editor
 	IModularFeatures::Get().UnregisterModularFeature(TEXT("SourceCodeAccessor"), &SensibleEditorSourceCodeAccessor);
