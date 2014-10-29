@@ -23,7 +23,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  */
 #include "Runtime/Core/Public/Features/IModularFeatures.h"
 #include "SensibleEditorSourceCodeAccessModule.h"
 
-IMPLEMENT_MODULE( FXCodeSourceCodeAccessModule, SensibleEditorSourceCodeAccess );
+IMPLEMENT_MODULE( FSensibleSourceCodeAccessModule, SensibleEditorSourceCodeAccess );
 
 void FSensibleSourceCodeAccessModule::StartupModule()
 {
