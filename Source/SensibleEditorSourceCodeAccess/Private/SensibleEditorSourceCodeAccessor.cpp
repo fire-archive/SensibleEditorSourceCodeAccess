@@ -49,7 +49,6 @@ bool FSensibleSourceCodeAccessor::OpenSolution()
   FString FullPath;
   if ( FDesktopPlatformModule::Get()->GetSolutionPath(FullPath) )
   {
-    FString FullPath;
     if ( FPaths::FileExists( FullPath ) )
     { 
     FString Editor = FString(TEXT("/usr/bin/sensible-editor"));
