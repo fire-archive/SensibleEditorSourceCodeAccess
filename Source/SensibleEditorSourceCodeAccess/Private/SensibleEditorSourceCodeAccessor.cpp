@@ -24,27 +24,27 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  */
 
 #define LOCTEXT_NAMESPACE "SensibleEditorSourceCodeAccessor"
 
-bool FXCodeSourceCodeAccessor::CanAccessSourceCode() const
+bool FSensibleSourceCodeAccessor::CanAccessSourceCode() const
 {
   return FPaths::FileExists(TEXT("/usr/bin/clang"));
 }
 
-FName FXCodeSourceCodeAccessor::GetFName() const
+FName FSensibleSourceCodeAccessor::GetFName() const
 {
   return FName("SensibleEditorSourceCodeAccessor");
 }
 
-FText FXCodeSourceCodeAccessor::GetNameText() const 
+FText FSensibleSourceCodeAccessor::GetNameText() const 
 {
   return LOCTEXT("SensibleEditorDisplayName", "Sensible Editor");
 }
 
-FText FXCodeSourceCodeAccessor::GetDescriptionText() const
+FText FSensibleSourceCodeAccessor::GetDescriptionText() const
 {
   return LOCTEXT("SensibleEditorDisplayDesc", "Open source code files with Sensible Editor");
 }
 
-bool FXCodeSourceCodeAccessor::OpenSolution()
+bool FSensibleSourceCodeAccessor::OpenSolution()
 {
   const FString FullPath = IFileManager::Get().ConvertToAbsolutePathForExternalAppForRead( *FModuleManager::Get().GetSolutionFilepath() );
   if ( FPaths::FileExists( FullPath ) )
@@ -64,7 +64,7 @@ bool FXCodeSourceCodeAccessor::OpenSolution()
   return false;
 }
 
-bool FXCodeSourceCodeAccessor::OpenFileAtLine(const FString& FullPath, int32 LineNumber, int32 ColumnNumber)
+bool FSensibleSourceCodeAccessor::OpenFileAtLine(const FString& FullPath, int32 LineNumber, int32 ColumnNumber)
 {
     FString Editor = FString(TEXT("/usr/bin/sensible-editor"));
     FString Args = FullPath;
@@ -82,7 +82,7 @@ bool FXCodeSourceCodeAccessor::OpenFileAtLine(const FString& FullPath, int32 Lin
   return false;
 }
 
-bool FXCodeSourceCodeAccessor::OpenSourceFiles(const TArray<FString>& AbsoluteSourcePaths) 
+bool FSensibleSourceCodeAccessor::OpenSourceFiles(const TArray<FString>& AbsoluteSourcePaths) 
 {
   for ( const FString& SourcePath : AbsoluteSourcePaths ) 
   {
@@ -101,12 +101,12 @@ bool FXCodeSourceCodeAccessor::OpenSourceFiles(const TArray<FString>& AbsoluteSo
   return true;
 }
 
-bool FXCodeSourceCodeAccessor::SaveAllOpenDocuments() const
+bool FSensibleSourceCodeAccessor::SaveAllOpenDocuments() const
 {
   return false;
 }
 
-void FXCodeSourceCodeAccessor::Tick(const float DeltaTime) 
+void FSensibleSourceCodeAccessor::Tick(const float DeltaTime) 
 {
 
 }
