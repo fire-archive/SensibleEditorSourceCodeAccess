@@ -23,7 +23,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  */
 
 #include "SensibleEditorSourceCodeAccessor.h"
 
-class FXCodeSourceCodeAccessModule : public IModuleInterface
+class FSensibleSourceCodeAccessModule : public IModuleInterface
 {
 public:
 	/** IModuleInterface implementation */
@@ -31,5 +31,5 @@ public:
 	virtual void ShutdownModule() override;
 
 private:
-	FXCodeSourceCodeAccessor SensibleEditorSourceCodeAccessor;
+	FSensibleCodeAccessor SensibleEditorSourceCodeAccessor;
 };
