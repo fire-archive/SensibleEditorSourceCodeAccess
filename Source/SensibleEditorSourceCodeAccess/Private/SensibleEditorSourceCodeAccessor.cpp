@@ -50,18 +50,24 @@ bool FSensibleSourceCodeAccessor::OpenSolution()
   if ( FDesktopPlatformModule::Get()->GetSolutionPath(FullPath) )
   {
     if ( FPaths::FileExists( FullPath ) )
-    { 
-    FString Editor = FString(TEXT("/usr/bin/sensible-editor"));
-    if(FLinuxPlatformProcess::CreateProc(*Editor,
-                                         *FullPath,
-                                         true,
-                                         true,
-                                         false,
-                                         nullptr,
-                                         0,
-                                         nullptr,
-                                         nullptr).IsValid())
-      return true;
+    {
+
+        // Add this to handle spaces in path names.
+        const FString NewFullPath = FString::Printf(TEXT("\"%s\""), *FullPath);
+
+        FString Editor = FString(TEXT("/usr/bin/sensible-editor"));
+        if(FLinuxPlatformProcess::CreateProc(*Editor,
+                                             *NewFullPath,
+                                             true,
+                                             true,
+                                             false,
+                                             nullptr,
+                                             0,
+                                             nullptr,
+                                             nullptr).IsValid())
+        {
+          return true;
+        }
     }
   }
   return false;
@@ -70,7 +76,12 @@ bool FSensibleSourceCodeAccessor::OpenSolution()
 bool FSensibleSourceCodeAccessor::OpenFileAtLine(const FString& FullPath, int32 LineNumber, int32 ColumnNumber)
 {
     FString Editor = FString(TEXT("/usr/bin/sensible-editor"));
-    Args.Append(" +").Append(FString::FromInt(LineNumber));
+
+    // Add this to handle spaces in path names.
+    const FString NewFullPath = FString::Printf(TEXT("\"%s+%d\""), *FullPath, LineNumber);
+
+    Args.Append(NewFullPath);
+
     if(FLinuxPlatformProcess::CreateProc(*Editor,
                                          *Args,
                                          true,
@@ -80,7 +91,10 @@ bool FSensibleSourceCodeAccessor::OpenFileAtLine(const FString& FullPath, int32 
                                          0,
                                          nullptr,
                                          nullptr).IsValid())
+    {
       return true;
+    }
+
   return false;
 }
 
@@ -89,16 +103,22 @@ bool FSensibleSourceCodeAccessor::OpenSourceFiles(const TArray<FString>& Absolut
   for ( const FString& SourcePath : AbsoluteSourcePaths ) 
   {
     FString Editor = FString(TEXT("/usr/bin/sensible-editor"));
+
+    // Add this to handle spaces in path names.
+    const FString NewSourcePath = FString::Printf(TEXT("\"%s\""), *SourcePath);
+
     if(!(FLinuxPlatformProcess::CreateProc(*Editor,
-                                           *SourcePath,
+                                           *NewSourcePath,
                                            true,
                                            true,
                                            false,
                                            nullptr,
                                            0,
                                            nullptr,
-                                           nullptr).IsValid())) 
+                                           nullptr).IsValid()))
+    {
         return false;
+    }
   }  
   return true;
 }
