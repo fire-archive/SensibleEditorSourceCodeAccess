@@ -80,10 +80,8 @@ bool FSensibleSourceCodeAccessor::OpenFileAtLine(const FString& FullPath, int32 
     // Add this to handle spaces in path names.
     const FString NewFullPath = FString::Printf(TEXT("\"%s+%d\""), *FullPath, LineNumber);
 
-    Args.Append(NewFullPath);
-
     if(FLinuxPlatformProcess::CreateProc(*Editor,
-                                         *Args,
+                                         *NewFullPath,
                                          true,
                                          true,
                                          false,
