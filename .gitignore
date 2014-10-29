@@ -1,0 +1,5 @@
+# Ignore autosave files
+*~
+
+# Ignore IDE user settings file
+*.user

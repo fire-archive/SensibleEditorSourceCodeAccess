@@ -49,7 +49,10 @@ bool FXCodeSourceCodeAccessor::OpenSolution()
   const FString FullPath = IFileManager::Get().ConvertToAbsolutePathForExternalAppForRead( *FModuleManager::Get().GetSolutionFilepath() );
   if ( FPaths::FileExists( FullPath ) )
   {
-    FPlatformProcess::LaunchFileInDefaultExternalApplication( *FullPath );
+    // Add this to handle spaces in path names.
+    const FString NewFullPath = FString::Printf(TEXT("\"%s\""), *FullPath);
+      
+    FPlatformProcess::LaunchFileInDefaultExternalApplication( *NewFullPath );
     return true;
   }
   return false;
@@ -60,7 +63,10 @@ bool FXCodeSourceCodeAccessor::OpenFileAtLine(const FString& FullPath, int32 Lin
   bool ExecutionSucceeded = false;
   if(ExecutionSucceeded == false)
   {
-    FPlatformProcess::LaunchFileInDefaultExternalApplication(*FullPath);
+    // Add this to handle spaces in path names.
+    const FString NewFullPath = FString::Printf(TEXT("\"%s\""), *FullPath);
+      
+    FPlatformProcess::LaunchFileInDefaultExternalApplication(*NewFullPath);
   }
   
   return true;
@@ -70,7 +76,10 @@ bool FXCodeSourceCodeAccessor::OpenSourceFiles(const TArray<FString>& AbsoluteSo
 {
   for ( const FString& SourcePath : AbsoluteSourcePaths ) 
   {
-    FPlatformProcess::LaunchFileInDefaultExternalApplication(*SourcePath);
+    // Add this to handle spaces in path names.
+    const FString NewSourcePath = FString::Printf(TEXT("\"%s\""), *SourcePath);
+      
+    FPlatformProcess::LaunchFileInDefaultExternalApplication(*NewSourcePath);
   }
   return true;
 }
