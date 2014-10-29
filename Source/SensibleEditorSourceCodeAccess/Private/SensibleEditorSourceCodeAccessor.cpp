@@ -71,7 +71,6 @@ bool FSensibleSourceCodeAccessor::OpenSolution()
 bool FSensibleSourceCodeAccessor::OpenFileAtLine(const FString& FullPath, int32 LineNumber, int32 ColumnNumber)
 {
     FString Editor = FString(TEXT("/usr/bin/sensible-editor"));
-    FString Args = FullPath;
     Args.Append(" +").Append(FString::FromInt(LineNumber));
     if(FLinuxPlatformProcess::CreateProc(*Editor,
                                          *Args,
