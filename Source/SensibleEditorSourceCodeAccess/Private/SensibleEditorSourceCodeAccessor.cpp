@@ -47,8 +47,10 @@ FText FSensibleSourceCodeAccessor::GetDescriptionText() const
 bool FSensibleSourceCodeAccessor::OpenSolution()
 {
   const FString FullPath = IFileManager::Get().ConvertToAbsolutePathForExternalAppForRead( *FModuleManager::Get().GetSolutionFilepath() );
-  if ( FPaths::FileExists( FullPath ) )
+  if ( FDesktopPlatformModule::Get()->GetSolutionPath(FullPath) )
   {
+    if ( FPaths::FileExists( FullPath ) )
+    { 
     FString Editor = FString(TEXT("/usr/bin/sensible-editor"));
     if(FLinuxPlatformProcess::CreateProc(*Editor,
                                          *FullPath,
@@ -60,6 +62,7 @@ bool FSensibleSourceCodeAccessor::OpenSolution()
                                          nullptr,
                                          nullptr).IsValid())
       return true;
+    }
   }
   return false;
 }
