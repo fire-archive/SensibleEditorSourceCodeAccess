@@ -31,5 +31,5 @@ public:
 	virtual void ShutdownModule() override;
 
 private:
-	FSensibleCodeAccessor SensibleEditorSourceCodeAccessor;
+    FSensibleSourceCodeAccessor SensibleEditorSourceCodeAccessor;
 };
