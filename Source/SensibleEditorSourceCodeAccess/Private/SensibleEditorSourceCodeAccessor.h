@@ -23,7 +23,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  */
 
 #include "ISourceCodeAccessor.h"
 
-class FXCodeSourceCodeAccessor : public ISourceCodeAccessor
+class FSensibleSourceCodeAccessor : public ISourceCodeAccessor
 {
 public:
 	/** ISourceCodeAccessor implementation */
