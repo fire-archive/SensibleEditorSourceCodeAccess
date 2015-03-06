@@ -21,6 +21,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  */
 
 #include "SensibleEditorSourceCodeAccessPrivatePCH.h"
 #include "SensibleEditorSourceCodeAccessor.h"
+#include "DesktopPlatformModule.h"
 
 #define LOCTEXT_NAMESPACE "SensibleEditorSourceCodeAccessor"
 
@@ -70,6 +71,7 @@ bool FSensibleSourceCodeAccessor::OpenSolution()
 bool FSensibleSourceCodeAccessor::OpenFileAtLine(const FString& FullPath, int32 LineNumber, int32 ColumnNumber)
 {
     FString Editor = FString(TEXT("/usr/bin/sensible-editor"));
+    FString Args;
     Args.Append(" +").Append(FString::FromInt(LineNumber));
     if(FLinuxPlatformProcess::CreateProc(*Editor,
                                          *Args,
@@ -101,6 +103,11 @@ bool FSensibleSourceCodeAccessor::OpenSourceFiles(const TArray<FString>& Absolut
         return false;
   }  
   return true;
+}
+
+bool FSensibleSourceCodeAccessor::AddSourceFiles(const TArray<FString>& AbsoluteSourcePaths, const TArray<FString>& AvailableModules)
+{
+        return false;
 }
 
 bool FSensibleSourceCodeAccessor::SaveAllOpenDocuments() const
