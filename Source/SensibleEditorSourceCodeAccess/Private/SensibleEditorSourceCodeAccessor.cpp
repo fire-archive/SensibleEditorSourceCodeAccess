@@ -122,6 +122,11 @@ bool FSensibleSourceCodeAccessor::OpenSourceFiles(const TArray<FString>& Absolut
   return true;
 }
 
+bool FSensibleSourceCodeAccessor::AddSourceFiles(const TArray<FString>& AbsoluteSourcePaths, const TArray<FString>& AvailableModules)
+{
+    return false;
+}
+
 bool FSensibleSourceCodeAccessor::SaveAllOpenDocuments() const
 {
   return false;
