@@ -36,3 +36,8 @@ void FSensibleSourceCodeAccessModule::ShutdownModule()
 	// unbind provider from editor
 	IModularFeatures::Get().UnregisterModularFeature(TEXT("SourceCodeAccessor"), &SensibleEditorSourceCodeAccessor);
 }
+
+FSensibleSourceCodeAccessor& FSensibleSourceCodeAccessModule::GetAccessor()
+{
+    return SensibleEditorSourceCodeAccessor;
+}
