@@ -3,7 +3,17 @@ SensibleEditorSourceCodeAccess
 
 Clone this to your UnrealEngine directory at `Engine/Plugins/Developer`.
 
-`mono Engine/Binaries/DotNET/UnrealBuildTool.exe Linux Development UE4Editor -module SensibleEditorSourceCodeAccess`
+Add in Engine/Config/Linux/LinuxEngine.ini
+
+```
+[/Script/SourceCodeAccess.SourceCodeAccessSettings]
+PreferredAccessor=SensibleEditorSourceCodeAccessor
+```
+and then in the head folder UnrealEngine:
+
+```bash
+make UE4Editor
+```
 
 Enable this as your code view editor.
 
