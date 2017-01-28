@@ -22,6 +22,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  */
 #include "SensibleEditorSourceCodeAccessPrivatePCH.h"
 #include "SensibleEditorSourceCodeAccessor.h"
 #include "DesktopPlatformModule.h"
+#include <cstdlib>
 
 #define LOCTEXT_NAMESPACE "SensibleEditorSourceCodeAccessor"
 
@@ -56,7 +57,12 @@ bool FSensibleSourceCodeAccessor::OpenSolution()
         // Add this to handle spaces in path names.
         const FString NewFullPath = FString::Printf(TEXT("\"%s\""), *FullPath);
 
-        FString Editor = FString(TEXT("/usr/bin/sensible-editor"));
+        FString Editor = FString(UTF8_TO_TCHAR(std::getenv("EDITOR")));
+        if (Editor.IsEmpty())
+        {
+            Editor = FString(TEXT("/usr/bin/sensible-editor"));
+        }
+
         if(FLinuxPlatformProcess::CreateProc(*Editor,
                                              *NewFullPath,
                                              true,
@@ -76,7 +82,11 @@ bool FSensibleSourceCodeAccessor::OpenSolution()
 
 bool FSensibleSourceCodeAccessor::OpenFileAtLine(const FString& FullPath, int32 LineNumber, int32 ColumnNumber)
 {
-    FString Editor = FString(TEXT("/usr/bin/sensible-editor"));
+    FString Editor = FString(UTF8_TO_TCHAR(std::getenv("EDITOR")));
+    if (Editor.IsEmpty())
+    {
+        Editor = FString(TEXT("/usr/bin/sensible-editor"));
+    }
 
     // Add this to handle spaces in path names.
     const FString NewFullPath = FString::Printf(TEXT("\"%s+%d\""), *FullPath, LineNumber);
@@ -101,7 +111,11 @@ bool FSensibleSourceCodeAccessor::OpenSourceFiles(const TArray<FString>& Absolut
 {
   for ( const FString& SourcePath : AbsoluteSourcePaths ) 
   {
-    FString Editor = FString(TEXT("/usr/bin/sensible-editor"));
+    FString Editor = FString(UTF8_TO_TCHAR(std::getenv("EDITOR")));
+    if (Editor.IsEmpty())
+    {
+        Editor = FString(TEXT("/usr/bin/sensible-editor"));
+    }
 
     // Add this to handle spaces in path names.
     const FString NewSourcePath = FString::Printf(TEXT("\"%s\""), *SourcePath);
