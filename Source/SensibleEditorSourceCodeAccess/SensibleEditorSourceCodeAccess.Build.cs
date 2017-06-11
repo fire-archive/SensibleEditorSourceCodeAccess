@@ -23,7 +23,7 @@ namespace UnrealBuildTool.Rules
 {
 	public class SensibleEditorSourceCodeAccess : ModuleRules
 	{
-                 public SensibleEditorSourceCodeAccess(TargetInfo Target)
+                 public SensibleEditorSourceCodeAccess(ReadOnlyTargetRules Target) : base(Target)
 		 {
 		 	PrivateDependencyModuleNames.AddRange(
                                 new string[]
