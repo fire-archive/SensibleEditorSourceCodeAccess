@@ -17,7 +17,13 @@ make UE4Editor
 
 Enable this as your code view editor.
 
+Ubuntu:
+
 You need to select a gui editor with `select-editor`.
+
+Gentoo:
+
+Select a gui editor with`eselect editor`.
 
 ### Funding
 
