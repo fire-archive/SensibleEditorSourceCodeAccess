@@ -25,6 +25,10 @@ Gentoo:
 
 Select a gui editor with`eselect editor`.
 
+Debian:
+
+Use `update-alternatives --config editor`.
+
 ### Funding
 
 Accepting funding at: https://www.patreon.com/ernestlee
