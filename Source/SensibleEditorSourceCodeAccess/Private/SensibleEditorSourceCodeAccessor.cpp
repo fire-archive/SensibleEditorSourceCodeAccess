@@ -31,6 +31,13 @@ bool FSensibleSourceCodeAccessor::CanAccessSourceCode() const
   return FPaths::FileExists(TEXT("/usr/bin/clang"));
 }
 
+bool FSensibleSourceCodeAccessor::DoesSolutionExist() const
+{ 
+  FString SolutionPath;
+  FDesktopPlatformModule::Get()->GetSolutionPath(SolutionPath);
+  return FPaths::FileExists(SolutionPath);
+} 
+
 FName FSensibleSourceCodeAccessor::GetFName() const
 {
   return FName("SensibleEditorSourceCodeAccessor");
@@ -48,34 +55,38 @@ FText FSensibleSourceCodeAccessor::GetDescriptionText() const
 
 bool FSensibleSourceCodeAccessor::OpenSolution()
 {
-  FString FullPath;
-  if ( FDesktopPlatformModule::Get()->GetSolutionPath(FullPath) )
+  FString SolutionPath;
+  if (FDesktopPlatformModule::Get()->GetSolutionPath(SolutionPath))
   {
-    if ( FPaths::FileExists( FullPath ) )
-    {
+    return OpenSolutionAtPath(SolutionPath);
+  }
+  return false;
+}
 
-        // Add this to handle spaces in path names.
-        const FString NewFullPath = FString::Printf(TEXT("\"%s\""), *FullPath);
+bool FSensibleSourceCodeAccessor::OpenSolutionAtPath(const FString& InSolutionPath)
+{
+  FString FullPath = InSolutionPath;
 
-        FString Editor = FString(UTF8_TO_TCHAR(std::getenv("EDITOR")));
-        if (Editor.IsEmpty())
-        {
-            Editor = FString(TEXT("/usr/bin/sensible-editor"));
-        }
+  // Add this to handle spaces in path names.
+  const FString NewFullPath = FString::Printf(TEXT("\"%s\""), *FullPath);
 
-        if(FLinuxPlatformProcess::CreateProc(*Editor,
-                                             *NewFullPath,
-                                             true,
-                                             true,
-                                             false,
-                                             nullptr,
-                                             0,
-                                             nullptr,
-                                             nullptr).IsValid())
-        {
-          return true;
-        }
-    }
+  FString Editor = FString(UTF8_TO_TCHAR(std::getenv("EDITOR")));
+  if (Editor.IsEmpty())
+  {
+      Editor = FString(TEXT("/usr/bin/sensible-editor"));
+  }
+
+  if(FLinuxPlatformProcess::CreateProc(*Editor,
+                                       *NewFullPath,
+                                       true,
+                                       true,
+                                       false,
+                                       nullptr,
+                                       0,
+                                       nullptr,
+                                       nullptr).IsValid())
+  {
+    return true;
   }
   return false;
 }
